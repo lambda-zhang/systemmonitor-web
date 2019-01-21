@@ -1,0 +1,27 @@
+footer {
+  border-top: 1px solid #D8D7CF;
+  clear: both;
+  color: #9A9994;
+  font-size: 12px;
+  line-height: 15.4px;
+  margin-top: 15px;
+  overflow: hidden;
+  padding: 20px 0 40px;
+  max-width: 1024px;
+  margin: 50px auto 0px auto;
+  text-align: left;
+}
+footer .site-source {
+  background: url(../../../static/images/code.png) no-repeat scroll 0 2px transparent;
+  float: left;
+  padding-left: 46px;
+}
+footer .sfc-member {
+  float: right;
+  text-align: right;
+}
+
+footer a {
+  color: #403F3C;
+  cursor: pointer;
+}

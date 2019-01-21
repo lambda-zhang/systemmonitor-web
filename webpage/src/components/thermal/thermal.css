@@ -1,0 +1,74 @@
+.login-wrap {
+  text-align:center;
+}
+p {
+  color:red;
+}
+span {
+  cursor:pointer;
+}
+span:hover {
+  color:#41b883;
+}
+
+.rootdiv {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+ div.charthloder {
+    background: #ffffff7d;
+    margin: 0 auto;
+    width: 320px;
+    height: 320px;
+    flex: auto;
+ }
+
+ div.chartclass {
+    background: #f9fafa;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #d7d7d7;
+}
+
+div.tableholder {
+    width: 320px;
+    flex: auto;
+}
+
+table.hovertable {
+    font-family: verdana,arial,sans-serif;
+    color:#333333;
+    border-width: 1px;
+    border-color: #c3dde0;
+    border-collapse: collapse;
+    text-align: left;
+    width: 100%;
+}
+table.hovertable th {
+    background-color:#c3dde0;
+    padding: 8px;
+    border: 0px solid #000000;
+}
+
+table.hovertable td {
+    border-width: 1px;
+    padding: 6px;
+    border: 0px solid #000000;
+    font-size: 12px;
+    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
+}
+table.hovertable td.titleclass {
+    font-size: 12px;
+    width: 26%;
+    font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
+    color: #999 !important;
+}
+
+ div.tableholder {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+ }

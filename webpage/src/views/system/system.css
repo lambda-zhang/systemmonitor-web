@@ -1,0 +1,30 @@
+.login-wrap {
+  text-align:center;
+}
+
+div.rootdiv {
+  background: #f9f6f1;
+}
+
+p {
+  color:red;
+}
+span {
+  cursor:pointer;
+}
+span:hover {
+  color:#41b883;
+}
+
+.system {
+  display: flex;
+  flex-direction: column;
+  max-width: 1024px;
+  margin: 62px auto 0px auto;
+}
+
+@media (max-width: 1024px){
+  .system {
+  	margin: 40px auto 0px auto;
+  }
+}

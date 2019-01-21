@@ -1,0 +1,55 @@
+.login-wrap {
+  text-align:center;
+}
+p {
+  color:red;
+}
+span {
+  cursor:pointer;
+}
+span:hover {
+  color:#41b883;
+}
+
+.rootdiv {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+ div.charthloder {
+    background: #ffffff7d;
+    margin: 0 auto;
+    width: 320px;
+    height: 320px;
+    flex: auto;
+ }
+
+ div.chartclass {
+    background: #f9fafa;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #d7d7d7;;
+}
+
+ul li {
+    display: inline;
+    float: left;
+    width: 31%;
+    height: 18px;
+    overflow: hidden;
+    margin: 10px 15px 0 0;
+    line-height: 18px;
+    vertical-align: top;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #666;
+    text-align: left;
+}
+
+.infolist {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

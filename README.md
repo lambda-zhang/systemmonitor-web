@@ -1,4 +1,34 @@
-目前只支持Linux
+golang和vue.js的练手项目，做了一个类似“系统资源监视器”的东西
+目前只支持Linux，我自己测试过了X86的和arm32的(我用的是orangepione)
+前后端数据同步使用websocket，如果要把数据存到本地的sqlite以及打开http的API接口，使用环境变量USEDB=true
+
+
+## 直接下载并运行编译好的二进制
+下载编译好的[release.tgz](https://github.com/lambda-zhang/systemmonitor-web/releases/download/20190331/release.tgz)
+
+#### arm
+```
+$ tar -zxvmf release.tgz
+$ ./main.arm
+```
+
+#### arm64
+```
+$ tar -zxvmf release.tgz
+$ ./main.arm64
+```
+
+#### amd64
+```
+$ tar -zxvmf release.tgz
+$ ./main
+```
+
+## 运行起来之后在浏览器打开http://127.0.0.1:9000
+![截图1](https://github.com/lambda-zhang/systemmonitor-web/blob/master/webpage/static/images/screenshot1.png)
+![截图2](https://github.com/lambda-zhang/systemmonitor-web/blob/master/webpage/static/images/screenshot2.png)
+
+如果想测试源码或者提交PR，请继续看后面的说明，如果只是想试试看，那到这里就可以了
 
 ## 安装依赖
 ```
@@ -42,10 +72,6 @@ for arm(release):
 $ CGO_ENABLED=1 GOOS=linux GOARCH=arm CC=arm-linux-gnueabi-gcc go build -o main.arm -v  -ldflags "-w -s -linkmode external -extldflags -static" main.go
 ```
 
-
-## 运行起来之后在浏览器打开http://127.0.0.1:9000
-![截图1](https://github.com/lambda-zhang/systemmonitor-web/blob/master/webpage/static/images/screenshot1.png)
-![截图2](https://github.com/lambda-zhang/systemmonitor-web/blob/master/webpage/static/images/screenshot2.png)
 
 
 ## 调试时候检查数据

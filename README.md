@@ -1,5 +1,7 @@
 golang和vue.js的练手项目，做了一个类似“系统资源监视器”的东西
+
 目前只支持Linux，我自己测试过了X86的和arm32的(我用的是orangepione)
+
 前后端数据同步使用websocket，如果要把数据存到本地的sqlite以及打开http的API接口，使用环境变量USEDB=true
 
 

@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	s "../cron"
+	s "github.com/lambda-zhang/systemmonitor-web/cron"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"

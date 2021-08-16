@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	m "../models"
+	m "github.com/lambda-zhang/systemmonitor-web/models"
 
 	"time"
 

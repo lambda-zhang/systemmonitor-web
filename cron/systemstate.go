@@ -1,7 +1,7 @@
 package monitor
 
 import (
-	m "../models"
+	m "github.com/lambda-zhang/systemmonitor-web/models"
 
 	"os"
 	"time"
@@ -62,27 +62,27 @@ type oSinfo struct {
 	UpdatedAt int64 `json:"-"`
 }
 
-func (this *oSinfo) Updateinfo(info *s.SysInfo) error {
+func (_osinfo *oSinfo) Updateinfo(info *s.SysInfo) error {
 	o := info.OS
-	this.UpTime = o.UpTime
-	this.StartTime = o.StartTime * 1000
-	this.CpuUsage = float32(o.UsePermillage) / 10
-	this.Arch = o.Arch
-	this.Os = o.Os
-	this.KernelVersion = o.KernelVersion
-	this.KernelHostname = o.KernelHostname
-	this.NumCpu = o.NumCpu
+	_osinfo.UpTime = o.UpTime
+	_osinfo.StartTime = o.StartTime * 1000
+	_osinfo.CpuUsage = float32(o.UsePermillage) / 10
+	_osinfo.Arch = o.Arch
+	_osinfo.Os = o.Os
+	_osinfo.KernelVersion = o.KernelVersion
+	_osinfo.KernelHostname = o.KernelHostname
+	_osinfo.NumCpu = o.NumCPU
 
 	mem := info.Mem
-	this.MemTotalMB = mem.MemTotal / 1024 / 1024
-	this.MemUsage = float32(mem.MemUsePermillage) / 10
-	this.SwapTotalMB = mem.SwapTotal / 1024 / 1024
-	this.SwapUsage = float32(mem.SwapUsePermillage) / 10
+	_osinfo.MemTotalMB = mem.MemTotal / 1024 / 1024
+	_osinfo.MemUsage = float32(mem.MemUsePermillage) / 10
+	_osinfo.SwapTotalMB = mem.SwapTotal / 1024 / 1024
+	_osinfo.SwapUsage = float32(mem.SwapUsePermillage) / 10
 
-	this.Netinfo = make([]NetifInfo, 0)
+	_osinfo.Netinfo = make([]NetifInfo, 0)
 	n := info.Net.Cards
 	for _, v := range n {
-		this.Netinfo = append(this.Netinfo, NetifInfo{
+		_osinfo.Netinfo = append(_osinfo.Netinfo, NetifInfo{
 			Name:              v.Iface,
 			TotalInKBytes:     v.TotalInBytes / 1024,
 			TotalOutKBytes:    v.TotalOutBytes / 1024,
@@ -90,16 +90,16 @@ func (this *oSinfo) Updateinfo(info *s.SysInfo) error {
 			TotalOutKPackages: v.TotalOutPackages / 1024,
 		})
 	}
-	this.DisksInfo = make([]DiskInfo, 0)
+	_osinfo.DisksInfo = make([]DiskInfo, 0)
 	disk := info.Fs.Disks
 	for _, v := range disk {
-		this.DisksInfo = append(this.DisksInfo, DiskInfo{
+		_osinfo.DisksInfo = append(_osinfo.DisksInfo, DiskInfo{
 			Name:       v.Device,
 			MBytesAll:  v.BytesAll / 1024 / 1024,
 			BytesUsage: float32(v.BytesUsedPermillage) / 10,
 		})
 	}
-	this.UpdatedAt = time.Now().Unix() * 1000
+	_osinfo.UpdatedAt = time.Now().Unix() * 1000
 	return nil
 }
 
@@ -113,12 +113,12 @@ type thermalinfo struct {
 	Temp      []_thermalinfo `json:"temp"`
 }
 
-func (this *thermalinfo) Updateinfo(info *s.SysInfo) error {
+func (_thermal *thermalinfo) Updateinfo(info *s.SysInfo) error {
 	t := info.Thermal
-	this.Temp = make([]_thermalinfo, 0)
-	this.UpdatedAt = time.Now().Unix() * 1000
+	_thermal.Temp = make([]_thermalinfo, 0)
+	_thermal.UpdatedAt = time.Now().Unix() * 1000
 	for _, v := range t.Thermal {
-		this.Temp = append(this.Temp, _thermalinfo{Name: v.Type, Temp: float32(v.Temp) / 1000})
+		_thermal.Temp = append(_thermal.Temp, _thermalinfo{Name: v.Type, Temp: float32(v.Temp) / 1000})
 	}
 	return nil
 }
@@ -133,17 +133,17 @@ type cpumeminfo struct {
 	UpdatedAt int64   `json:"updateat"`
 }
 
-func (this *cpumeminfo) Updateinfo(info *s.SysInfo) error {
+func (_cpumem *cpumeminfo) Updateinfo(info *s.SysInfo) error {
 	c := info.CPU
 	mem := info.Mem
 
-	this.UpdatedAt = time.Now().Unix() * 1000
-	this.CpuUsage = float32(c.Cpu_permillage) / 10
-	this.Avg1min = c.Avg1min
-	this.Avg5min = c.Avg5min
-	this.Avg15min = c.Avg15min
-	this.MemUsage = float32(mem.MemUsePermillage) / 10
-	this.SwapUsage = float32(mem.SwapUsePermillage) / 10
+	_cpumem.UpdatedAt = time.Now().Unix() * 1000
+	_cpumem.CpuUsage = float32(c.CPUPermillage) / 10
+	_cpumem.Avg1min = c.Avg1min
+	_cpumem.Avg5min = c.Avg5min
+	_cpumem.Avg15min = c.Avg15min
+	_cpumem.MemUsage = float32(mem.MemUsePermillage) / 10
+	_cpumem.SwapUsage = float32(mem.SwapUsePermillage) / 10
 	return nil
 }
 
@@ -154,13 +154,13 @@ type networkinfo struct {
 	UpdatedAt      int64  `json:"updateat"`
 }
 
-func (this *networkinfo) Updateinfo(info *s.SysInfo) error {
+func (_network *networkinfo) Updateinfo(info *s.SysInfo) error {
 	n := info.Net
 
-	this.UpdatedAt = time.Now().Unix() * 1000
-	this.Established = n.Tcp.Tcp_established + n.Tcp6.Tcp_established
-	this.TcpConnections = n.Tcp.TcpConnections + n.Tcp6.TcpConnections
-	this.TcpListen = n.Tcp.Tcp_listen + n.Tcp6.Tcp_listen
+	_network.UpdatedAt = time.Now().Unix() * 1000
+	_network.Established = n.TCP.TCPEstablished + n.TCP6.TCPEstablished
+	_network.TcpConnections = n.TCP.TCPConnections + n.TCP6.TCPConnections
+	_network.TcpListen = n.TCP.TCPListen + n.TCP6.TCPListen
 	return nil
 }
 
@@ -177,12 +177,12 @@ type netif struct {
 	NetIf     []_netif `json:"cards"`
 }
 
-func (this *netif) Updateinfo(info *s.SysInfo) error {
+func (__netif *netif) Updateinfo(info *s.SysInfo) error {
 	n := info.Net
-	this.NetIf = make([]_netif, 0)
+	__netif.NetIf = make([]_netif, 0)
 
 	for _, v := range n.Cards {
-		this.NetIf = append(this.NetIf, _netif{
+		__netif.NetIf = append(__netif.NetIf, _netif{
 			Name:        v.Iface,
 			InKBytes:    v.InBytes / uint64(period_sec) / 1024,
 			OutKBytes:   v.OutBytes / uint64(period_sec) / 1024,
@@ -190,7 +190,7 @@ func (this *netif) Updateinfo(info *s.SysInfo) error {
 			OutPackages: v.OutPackages / uint64(period_sec),
 		})
 	}
-	this.UpdatedAt = time.Now().Unix() * 1000
+	__netif.UpdatedAt = time.Now().Unix() * 1000
 	return nil
 }
 
@@ -208,12 +208,12 @@ type disk struct {
 	Disks     []_disk `json:"disks"`
 }
 
-func (this *disk) Updateinfo(info *s.SysInfo) error {
+func (__disk *disk) Updateinfo(info *s.SysInfo) error {
 	f := info.Fs
-	this.Disks = make([]_disk, 0)
+	__disk.Disks = make([]_disk, 0)
 
 	for _, v := range f.Disks {
-		this.Disks = append(this.Disks, _disk{
+		__disk.Disks = append(__disk.Disks, _disk{
 			Name:      v.Device,
 			ReadKBps:  v.ReadBytes / 1024 / uint64(period_sec),
 			WriteKBps: v.WriteBytes / 1024 / uint64(period_sec),
@@ -223,7 +223,7 @@ func (this *disk) Updateinfo(info *s.SysInfo) error {
 		})
 	}
 
-	this.UpdatedAt = time.Now().Unix() * 1000
+	__disk.UpdatedAt = time.Now().Unix() * 1000
 	return nil
 }
 
@@ -250,10 +250,10 @@ func callback(sysinfo *s.SysInfo) {
 
 	osdb := &m.OS{ID: 0, UpTime: o.UpTime, StartTime: o.StartTime, UsePermillage: o.UsePermillage,
 		Arch: o.Arch, Os: o.Os, KernelVersion: o.KernelVersion,
-		KernelHostname: o.KernelHostname, NumCpu: o.NumCpu, UpdatedAt: ts}
+		KernelHostname: o.KernelHostname, NumCpu: o.NumCPU, UpdatedAt: ts}
 	osdb.UpdateOS()
 
-	sysdb := &m.SYS{Cpu_idle: c.Cpu_idle, Cpu_total: c.Cpu_total, Cpu_permillage: c.Cpu_permillage,
+	sysdb := &m.SYS{Cpu_idle: c.CPUIdle, Cpu_total: c.CPUTotal, Cpu_permillage: c.CPUPermillage,
 		Avg1min: c.Avg1min, Avg5min: c.Avg5min, Avg15min: c.Avg15min, MemTotal: mem.MemTotal,
 		MemAvailable: mem.MemAvailable, MemUsePermillage: mem.MemUsePermillage,
 		SwapTotal: mem.SwapTotal, SwapFree: mem.SwapFree, SwapUsePermillage: mem.SwapUsePermillage,
@@ -270,9 +270,9 @@ func callback(sysinfo *s.SysInfo) {
 		netifdb.UpdateNETIF()
 	}
 
-	networkdb := &m.NETWORK{TcpConnections: n.Tcp.TcpConnections + n.Tcp6.TcpConnections,
-		Established: n.Tcp.Tcp_established + n.Tcp6.Tcp_established,
-		TcpListen:   n.Tcp.Tcp_listen + n.Tcp6.Tcp_listen, UpdatedAt: ts}
+	networkdb := &m.NETWORK{TcpConnections: n.TCP.TCPClosing + n.TCP6.TCPConnections,
+		Established: n.TCP.TCPEstablished + n.TCP6.TCPEstablished,
+		TcpListen:   n.TCP.TCPListen + n.TCP6.TCPListen, UpdatedAt: ts}
 	networkdb.UpdateNETWORK()
 
 	for _, v := range f.Disks {
@@ -293,5 +293,13 @@ func callback(sysinfo *s.SysInfo) {
 
 func init() {
 	SM = s.New(period_sec, callback)
+	SM.OSEn = true
+	SM.CPUEn = true
+	SM.MemEn = true
+	SM.NetEn = true
+	SM.FsEn = true
+	SM.ThermalEn = true
 	SM.Start()
+
+	// defer sm.Stop()
 }

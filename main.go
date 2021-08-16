@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./cron"
-	"./routes"
+	monitor "github.com/lambda-zhang/systemmonitor-web/cron"
+	"github.com/lambda-zhang/systemmonitor-web/routes"
 
 	"fmt"
 	"log"

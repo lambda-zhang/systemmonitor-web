@@ -1,7 +1,7 @@
 package routes
 
 import (
-	ctr "../controllers"
+	ctr "github.com/lambda-zhang/systemmonitor-web/controllers"
 
 	"net/http"
 	"os"

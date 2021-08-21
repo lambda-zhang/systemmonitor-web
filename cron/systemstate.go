@@ -138,7 +138,7 @@ func (_cpumem *cpumeminfo) Updateinfo(info *s.SysInfo) error {
 	mem := info.Mem
 
 	_cpumem.UpdatedAt = time.Now().Unix() * 1000
-	_cpumem.CpuUsage = float32(c.CPUPermillage) / 10
+	_cpumem.CpuUsage = float32(c.CPUs["cpu"].CPUPermillage) / 10
 	_cpumem.Avg1min = c.Avg1min
 	_cpumem.Avg5min = c.Avg5min
 	_cpumem.Avg15min = c.Avg15min
@@ -253,7 +253,7 @@ func callback(sysinfo *s.SysInfo) {
 		KernelHostname: o.KernelHostname, NumCpu: o.NumCPU, UpdatedAt: ts}
 	osdb.UpdateOS()
 
-	sysdb := &m.SYS{Cpu_idle: c.CPUIdle, Cpu_total: c.CPUTotal, Cpu_permillage: c.CPUPermillage,
+	sysdb := &m.SYS{Cpu_idle: c.CPUs["cpu"].CPUIdle, Cpu_total: c.CPUs["cpu"].CPUTotal, Cpu_permillage: c.CPUs["cpu"].CPUPermillage,
 		Avg1min: c.Avg1min, Avg5min: c.Avg5min, Avg15min: c.Avg15min, MemTotal: mem.MemTotal,
 		MemAvailable: mem.MemAvailable, MemUsePermillage: mem.MemUsePermillage,
 		SwapTotal: mem.SwapTotal, SwapFree: mem.SwapFree, SwapUsePermillage: mem.SwapUsePermillage,
